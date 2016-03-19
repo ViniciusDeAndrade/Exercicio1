@@ -21,32 +21,44 @@ public class Client {
 		//instancia o arquivo
 		File file = new File(localDoArquivo);
 
+		String requisicao,resposta = null;
+
+
 		try{
 			//efetivamente cria o arquivo
 			file.createNewFile();
 		}catch( IOException e){
 			e.printStackTrace();
 		}
-		
-		// Começar a tratar o arquivo a ser enviado
+
 		// cria arquivo a ser serializado e mandado para o servidor
-		ObjectOutputStream objetoParaOServidor = new ObjectOutputStream(clientSocket.getOutputStream());
 		FileInputStream arquivo = new FileInputStream(file);
 
-		byte []buf = new byte[4096];
+		// Começar a tratar o arquivo a ser enviado
+		ObjectOutputStream objetoParaOServidor = new ObjectOutputStream(clientSocket.getOutputStream());
 
-		while(true){
-			int len = arquivo.read(buf);
-			if(len == -1 )
-				break;
-			objetoParaOServidor.write(buf,0, len);
-		}
-		//decarregar tudo 
-		objetoParaOServidor.flush();
-		
+
 		//começar a tratar o arquivo a ser recebido	
 		ObjectInputStream objetoVindoDoServidor = new ObjectInputStream(clientSocket.getInputStream());
-		
+
+		byte [] buffer = new byte [4096];
+
+		while(true){
+			int len = arquivo.read(buffer);
+			if(len == -1)
+				break;
+			objetoParaOServidor.write(buffer,0,len);
+			objetoParaOServidor.flush();
+
+		}
+
+
+
+
+
 	}
-	
+
+
+
+
 }
