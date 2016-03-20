@@ -13,10 +13,10 @@ public class Client {
 		Client cliente = new Client();
 
 		// Solicitando arquivo
-		cliente.getArquidoDoServidor();
+		cliente.getArquivoDoServidor();
 	}
 
-	private void getArquidoDoServidor() {
+	private void getArquivoDoServidor() {
 		Socket socket = null;
 		FileOutputStream fileOutputStream = null;
 		InputStream inputStream = null;
